@@ -1,0 +1,233 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ modal_title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card p-3">
+              <form (ngSubmit)="submit(data)" #data="ngForm">
+                <input type="hidden" name="id" [(ngModel)]="customer.id" />
+                <div class="form-group">
+                  <label for="">Your Name </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #cname="ngModel"
+                    name="name"
+                    [(ngModel)]="customer.name"
+                    required
+                    minlength="4"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="cname.touched && cname.errors?.required"
+                  >
+                    Customer name required *
+                  </div>
+
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      cname.touched && cname.invalid && !cname.errors?.required
+                    "
+                  >
+                    Customer name must min 4 chars *
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Your Email </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    #cemail="ngModel"
+                    name="email"
+                    [(ngModel)]="customer.email"
+                    required
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="cemail.touched && cemail.errors?.required"
+                  >
+                    Customer email required *
+                  </div>
+
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      cemail.touched &&
+                      cemail.invalid &&
+                      !cemail.errors?.required
+                    "
+                  >
+                    Customer email not valid *
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Your Mobile </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="mobile"
+                    [(ngModel)]="customer.mobile"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="">Your Password </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #cpass="ngModel"
+                    name="password"
+                    [(ngModel)]="customer.password"
+                    required
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="cpass.touched && cpass.errors?.required"
+                  >
+                    Customer Passowrd required *
+                  </div>
+
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      cpass.touched && cpass.invalid && !cpass.errors?.required
+                    "
+                  >
+                    Minimum eight characters, at least one upper case English
+                    letter, one lower case English letter, one number and one
+                    special character
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Confirm password </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #ccpass="ngModel"
+                    name="confirmPassword"
+                    [(ngModel)]="customer.confirmPassword"
+                    required
+                    appConfirmPassword
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="ccpass.touched && ccpass.errors?.required"
+                  >
+                    Confirm Passowrd required *
+                  </div>
+
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      ccpass.touched &&
+                      !ccpass.errors?.required &&
+                      ccpass.invalid
+                    "
+                  >
+                    Confirm password not matched !
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Your Country </label>
+                  <select
+                    name="country"
+                    id=""
+                    class="form-control"
+                    [(ngModel)]="customer.country"
+                  >
+                    <option value="null" selected>Select</option>
+                    <option *ngFor="let cc of country" [value]="cc.id">
+                      {{ cc.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Address </label>
+                  <textarea
+                    class="form-control"
+                    name="address"
+                    [(ngModel)]="customer.address"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="submit"
+                    class="btn btn-success"
+                    [value]="button_text"
+                    [disabled]="!data.valid"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Country</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cust of customers">
+        <td>{{ cust.id }}</td>
+        <td>{{ cust.name }}</td>
+        <td>{{ cust.email }}</td>
+        <td>{{ cust.mobile }}</td>
+        <td>{{ cust.country }}</td>
+        <td>{{ cust.address }}</td>
+        <td>
+          <a
+            href="#"
+            (click)="edit(cust)"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            ><i class="bi bi-pencil-square"></i
+          ></a>
+          <a href="#" class="p-4" (click)="deletecustomer(cust.id)"
+            ><i class="bi bi-trash text-danger"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

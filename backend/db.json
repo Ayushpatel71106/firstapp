@@ -1,0 +1,32 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "ajay",
+      "email": "ajay@gmail.com",
+      "mobile": "982492342",
+      "password": "123",
+      "country": "india",
+      "address": "noida"
+    },
+    {
+      "id": 2,
+      "name": "vijay",
+      "email": "vijay@gmail.com",
+      "mobile": "982492342",
+      "password": "123",
+      "country": "india",
+      "address": "noida"
+    },
+    {
+      "id": 6,
+      "name": "mannu465",
+      "email": "viajyw@gmail.com",
+      "mobile": "9234829342",
+      "password": "123",
+      "confirmPassword": "123",
+      "country": "3",
+      "address": "noida"
+    }
+  ]
+}
