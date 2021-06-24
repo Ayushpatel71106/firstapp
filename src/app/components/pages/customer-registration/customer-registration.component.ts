@@ -36,7 +36,7 @@ export class CustomerRegistrationComponent implements OnInit {
 
   getAllCustomer() {
     this._customer.loadCustomer().subscribe((result: CustomerModel[]) => {
-      console.log(result);
+      //  console.log(result);
       this.customers = result;
     });
   }

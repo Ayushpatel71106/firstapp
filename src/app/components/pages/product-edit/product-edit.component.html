@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class="card p-3">
+      <form (ngSubmit)="submit()" [formGroup]="productdata">
+        <div class="form-group">
+          <label for="">Your Name </label>
+          <input type="hidden" name="id" formControlName="id" />
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            formControlName="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Your Email </label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            formControlName="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Your Mobile </label>
+          <input
+            type="text"
+            class="form-control"
+            name="mobile"
+            formControlName="mobile"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Your Password </label>
+          <input
+            type="text"
+            class="form-control"
+            name="password"
+            formControlName="password"
+          />
+          <div
+            *ngIf="
+              productdata.controls.password.touched &&
+              productdata.controls.password.errors?.required
+            "
+            class="text-danger"
+          >
+            password required *
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Confirm password </label>
+          <input
+            type="text"
+            class="form-control"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+            appConfirmPassword
+          />
+          <div
+            *ngIf="
+              productdata.controls.confirmPassword.touched &&
+              productdata.controls.confirmPassword.errors?.required
+            "
+            class="text-danger"
+          >
+            confirm password required *
+          </div>
+
+          <div
+            *ngIf="
+              productdata.controls.confirmPassword.touched &&
+              !productdata.controls.confirmPassword.errors?.required &&
+              productdata.controls.confirmPassword.invalid
+            "
+            class="text-danger"
+          >
+            confirm password not matched *
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">Your Country </label>
+          <select
+            name="country"
+            id=""
+            class="form-control"
+            formControlName="country"
+          >
+            <option value="null" selected>Select</option>
+            <option *ngFor="let cc of country" [value]="cc.id">
+              {{ cc.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">Address </label>
+          <textarea
+            class="form-control"
+            name="address"
+            formControlName="address"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-success" value="Update" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

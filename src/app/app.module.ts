@@ -15,6 +15,8 @@ import { PagenotfoundComponent } from "./components/pages/pagenotfound/pagenotfo
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { ProductListComponent } from './components/pages/product-list/product-list.component';
+import { ProductEditComponent } from './components/pages/product-edit/product-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,8 @@ import { ToastrModule } from "ngx-toastr";
     AboutComponent,
     ContactComponent,
     PagenotfoundComponent,
+    ProductListComponent,
+    ProductEditComponent,
   ],
   imports: [
     BrowserModule,

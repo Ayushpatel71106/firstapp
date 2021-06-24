@@ -24,7 +24,9 @@ export class CustomerService implements ICustomer {
     let id = model.id;
     return this._http.put(this.url + "/" + id, model);
   }
-
+  getcustomerById(id: number) {
+    return this._http.get(this.url + "/" + id);
+  }
   loadToDo(callback) {
     this._http.get(`${BaseURL}${EndPoint.TODOS}`).subscribe((result) => {
       callback(result);

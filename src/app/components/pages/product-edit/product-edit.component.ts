@@ -1,17 +1,22 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CustomerService } from "src/app/shared/customer.service";
-@Component({
-  selector: "app-productreg",
-  templateUrl: "./productreg.component.html",
-  styleUrls: ["./productreg.component.css"],
-})
-export class ProductregComponent implements OnInit {
-  country: { id: number; name: string }[];
 
+@Component({
+  selector: "app-product-edit",
+  templateUrl: "./product-edit.component.html",
+  styleUrls: ["./product-edit.component.css"],
+})
+export class ProductEditComponent implements OnInit {
+  country: { id: number; name: string }[];
+  product;
   productdata: FormGroup;
-  constructor(private _customer: CustomerService, private _router: Router) {
+  constructor(
+    private _customer: CustomerService,
+    private _router: Router,
+    private _activated: ActivatedRoute
+  ) {
     this.country = [
       { id: 1, name: "India" },
       { id: 2, name: "USA" },
@@ -24,6 +29,7 @@ export class ProductregComponent implements OnInit {
 
   ngOnInit(): void {
     this.productdata = new FormGroup({
+      id: new FormControl(""),
       name: new FormControl(
         "",
         Validators.compose([
@@ -41,13 +47,28 @@ export class ProductregComponent implements OnInit {
       ]),
       password: new FormControl("", [Validators.required]),
       confirmPassword: new FormControl("", [Validators.required]),
+      country: new FormControl("", [Validators.required]),
+      address: new FormControl("", [Validators.required]),
+    });
+    //console.log(this.product);
+    // this.productdata.setValue({ ...this.product });
+    this._activated.params.subscribe((param) => {
+      // console.log(param);
+      const id = param["id"];
+      this._customer.getcustomerById(id).subscribe((result: any) => {
+        this.productdata.setValue({
+          ...result,
+          confirmPassword: result.password,
+        });
+        console.log(result);
+      });
     });
   }
 
   submit() {
     console.log(this.productdata);
     this._customer
-      .createCustomer(this.productdata.value)
+      .updateCustomer(this.productdata.value)
       .subscribe((result: any) => {
         if (result) {
           this._router.navigate(["/products-list"]);

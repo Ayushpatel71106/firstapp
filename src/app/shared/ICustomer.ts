@@ -5,4 +5,5 @@ export interface ICustomer {
   createCustomer(model: CustomerModel): any;
   deleteCustomer(id: number): any;
   updateCustomer(model: CustomerModel): any;
+  getcustomerById(id: number): any;
 }

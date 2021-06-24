@@ -1,0 +1,31 @@
+<div class="container">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Country</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cust of products">
+        <td>{{ cust.id }}</td>
+        <td>{{ cust.name }}</td>
+        <td>{{ cust.email }}</td>
+        <td>{{ cust.mobile }}</td>
+        <td>{{ cust.country }}</td>
+        <td>{{ cust.address }}</td>
+        <td>
+          <a href="#" [routerLink]="['/products-edit', cust.id]"
+            ><i class="bi bi-pencil-square"></i
+          ></a>
+          <a href="#" class="p-4"><i class="bi bi-trash text-danger"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
